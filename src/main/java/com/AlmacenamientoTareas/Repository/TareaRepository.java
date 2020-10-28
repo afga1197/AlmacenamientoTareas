@@ -183,4 +183,39 @@ public class TareaRepository {
 		return date2;
 	}
 
+	public List<Tarea> obtenerTarea(int id) {
+		Connection conectar = null;
+		ArrayList<Tarea> tareas = new ArrayList<>();
+		try {
+			conectar = Conexion.getInstance().getConnection();
+			if (conectar != null) {
+				String query = "SELECT * FROM tarea WHERE Id=?";
+				preparedStatement = conectar.prepareStatement(query);
+				preparedStatement.setInt(1, id);
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					Tarea tarea = new Tarea();
+					tarea.setId(resultSet.getInt("Id"));
+					tarea.setNombre(resultSet.getString("Nombre"));
+					tarea.setPrioridad(resultSet.getInt("Prioridad"));
+					tarea.setCompleta(resultSet.getBoolean("Completada"));
+					tarea.setFechaCreacion(resultSet.getDate("Fecha"));
+					tareas.add(tarea);
+				}
+			}
+			return tareas;
+		} catch (Exception e) {
+			String log = "Error en la ejecucion del query, con excepcion en " + e.getMessage();
+			System.out.println(log);
+			return null;
+		} finally {
+			try {
+				Conexion.getInstance().closeConnection(conectar);
+			} catch (Exception e) {
+				String log = "Error al cerrar la conexion, con excepcion en " + e.getMessage();
+				System.out.println(log);
+			}
+		}
+	}
+
 }

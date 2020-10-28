@@ -31,5 +31,9 @@ public class TareasService {
 	public boolean borrarTarea(int id) {
 		return tareaRepository.borrarTarea(id);
 	}
+
+	public List<Tarea> obtenerTarea(int id) {
+		return tareaRepository.obtenerTarea(id);
+	}
 	
 }
