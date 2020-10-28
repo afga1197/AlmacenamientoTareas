@@ -16,4 +16,20 @@ public class TareasService {
 		return tareaRepository.obtenerTareas();
 	}
 
+	public boolean guardarTarea(Tarea tarea) {
+		return tareaRepository.guardarTarea(tarea);
+	}
+
+	public boolean actualizarTarea(Tarea tarea) {
+		return tareaRepository.actualiizarTarea(tarea);
+	}
+
+	public boolean actualizarTareaEstado(int id) {
+		return tareaRepository.actualizarTareaEstado(id);
+	}
+
+	public boolean borrarTarea(int id) {
+		return tareaRepository.borrarTarea(id);
+	}
+	
 }
